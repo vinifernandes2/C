@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h> // para converter a letra para maiúscula
+
+void capitalizacao(char entrada[50]) {
+    for (int i = 0; i < strlen(entrada); i++) {
+        // Verifica se a letra é inicial de palavra
+        if (i == 0 || entrada[i - 1] == ' ') {
+            entrada[i] = toupper(entrada[i]);
+        }
+    }
+}
+
+int main() {
+    char entrada[50];
+
+    // Lê a entrada de forma segura
+    fgets(entrada, sizeof(entrada), stdin);
+    
+    // Remove o caractere de nova linha, se existir
+    size_t len = strlen(entrada);
+    if (entrada[len - 1] == '\n') {
+        entrada[len - 1] = '\0';
+    }
+
+    // Converte as iniciais para maiúsculas
+    capitalizacao(entrada);
+
+    // Exibe a string capitalizada
+    printf("%s\n", entrada);
+
+    return 0;
+}

@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Recebe o vetor, os números e o tamanho do vetor
+int ContaMultiplos(int vetor[], int n, int tam){
+    // Contabiliza os múltiplos
+    int cont = 0;
+    for(int i = 0; i < tam; i++){
+        // Verifica se o número no vetor é múltiplo do número
+        if(vetor[i] % n == 0){
+            cont = cont + 1;
+        }
+    }
+    return cont;
+}
+
+int main()
+{
+    int quant_numeros;
+
+    printf("Digite a quantidade de numeros: ");
+    scanf("%i", &quant_numeros);
+
+    // Aloca dinamicamente o array de inteiros
+    int *numeros = (int *)malloc(quant_numeros * sizeof(int));
+
+    // Verifica se a alocação foi bem-sucedida
+    if (numeros == NULL) {
+        printf("Erro na alocação de memória.\n");
+        return 1;
+    }
+
+    // Captura os elementos do array
+    printf("\nDigite os elementos do array\n\n");
+    for(int i = 0; i < quant_numeros; i++){
+        printf("Numero: ");
+        scanf("%i", &numeros[i]);
+    }
+
+    int num;
+    printf("\nDigite o numero que sera comparado como multiplo: ");
+    scanf("%i", &num);
+
+    int total = ContaMultiplos(numeros, num, quant_numeros);
+    printf("\nQuantidade de multiplos de %i no vetor: %i", num, total);
+
+    // Libera a memória alocada
+    free(numeros);
+
+    return 0;
+}

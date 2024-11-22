@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//define a constante da gravidade na terra
+#define G_TERRA 9.807
+
+float ForcaPeso(float massa_corpo) {
+    //realiza o cálculo da força peso
+    return G_TERRA * massa_corpo;
+}
+
+int main() {
+    float massa;
+    printf("\nDigite a massa do corpo: ");
+    if (scanf("%f", &massa) != 1 || massa <= 0) {
+        printf("Por favor, insira um valor válido e positivo para a massa.\n");
+        return 1;  // Encerra o programa com erro
+    }
+
+    //chamada da função para cálculo da forca peso
+    float peso = ForcaPeso(massa);
+    
+    //imprime a força peso com duas casas decimais
+    printf("\nPeso do corpo na terra: %.2f N\n", peso);
+    return 0;
+}

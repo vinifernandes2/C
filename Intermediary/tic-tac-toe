@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+char analisa_jogo(char matriz[3][3]){
+    //contabiliza o número de x e de o na linha ou na coluna
+    int cont_x, cont_o;
+
+    //analisa as linhas
+    for(int i=0;i<3;i++){
+
+       //reinicializa as variáveis para a próxima linha
+       cont_x = 0;
+       cont_o = 0;
+       for(int j=0;j<3;j++){
+           if(matriz[i][j] == 'X'){
+                cont_x = cont_x + 1;
+           }
+           if(matriz[i][j] == 'O'){
+                cont_o = cont_o + 1;
+           }
+
+           //se caso o jogador tenha preenchido a linha toda
+           if(cont_x == 3)
+                return 'x';
+           if(cont_o == 3)
+                return 'o';
+       }
+    }
+    cont_x = 0;
+    cont_o = 0;
+    //analisa as colunas
+    for(int i=0;i<3;i++){
+
+       //reinicializa as variáveis para a próxima linha
+       cont_x = 0;
+       cont_o = 0;
+       for(int j=0;j<3;j++){
+           if(matriz[j][i] == 'X'){
+                cont_x = cont_x + 1;
+           }
+           if(matriz[j][i] == 'O'){
+                cont_o = cont_o + 1;
+           }
+
+           //se caso o jogador tenha preenchido a linha toda
+           if(cont_x == 3)
+                return 'x';
+           if(cont_o == 3)
+                return 'o';
+       }
+    }
+
+
+    //analisa as diagonais
+    if(matriz[0][0] == 'X' && matriz[1][1] == 'X' && matriz[2][2] == 'X')
+        return 'x';
+    if(matriz[2][0] == 'X' && matriz[1][1] == 'X' && matriz[0][2] == 'X')
+        return 'x';
+    if(matriz[0][0] == 'O' && matriz[1][1] == 'O' && matriz[2][2] == 'O')
+        return 'o';
+    if(matriz[2][0] == 'O' && matriz[1][1] == 'O' && matriz[0][2] == 'O')
+        return 'o';
+
+
+    //caso tenha dado velha
+    return 'v';
+}
+
+int main()
+{
+    //declara a matriz do jogo
+    char entrada[3][3];
+
+    //captura a matriz de entrada
+    for(int i=0;i<3;i++){
+        fflush(stdin);
+        scanf("%s",entrada[i]);
+    }
+
+
+
+    char result = analisa_jogo(entrada);
+    if(result == 'v')
+        printf("Velha\n");
+    else if(result == 'o')
+        printf("O\n");
+    else
+        printf("X\n");
+
+
+    return 0;
+}

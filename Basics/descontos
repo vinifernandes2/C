@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+float calcula_desconto(float valor, int quant_produtos){
+
+    float desconto = 0;
+    if(quant_produtos == 2){
+        desconto = (valor * 5)/100;
+    }
+    else if(quant_produtos > 2 && quant_produtos < 5){
+        desconto = (valor * 10)/100;
+    }
+     else if(quant_produtos > 4 && quant_produtos < 7){
+        desconto = (valor * 20)/100;
+    }
+    else if(quant_produtos >= 7){
+        desconto = (valor * 30)/100;
+    }
+
+    return desconto;
+}
+
+
+float valor_final(float valor, int quant_produtos){
+    float desconto = calcula_desconto(valor, quant_produtos);
+    return valor - desconto;
+}
+int main()
+{
+    float valor;
+    int quant_produtos;
+    scanf("%f", &valor);
+    scanf("%i", &quant_produtos);
+    float valor_total = valor_final(valor, quant_produtos);
+    printf("%.2f\n", valor_total);
+    return 0;
+}

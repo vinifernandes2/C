@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Definindo a estrutura 'Notas' para armazenar as notas de cada discente.
+typedef struct {
+    float nota_a;  // Nota da primeira avaliação
+    float nota_b;  // Nota da segunda avaliação
+} Notas;
+
+// Definindo a estrutura 'Discente' que contém informações de cada aluno.
+typedef struct {
+    char nome[20];        // Nome do discente (até 19 caracteres)
+    int matricula;        // Matrícula do discente
+    Notas notas_discente; // Estrutura que armazena as notas do discente
+} Discente;
+
+// Função para imprimir as informações de discentes que possuem o nome procurado.
+void imprime_discentes(Discente todos[], int q, char discente_procurado[20]) {
+    int contem = 0;  // Variável para verificar se algum discente foi encontrado
+    for (int i = 0; i < q; i++) {  // Loop que percorre todos os discentes
+        // Verifica se o nome do discente contém a substring procurada
+        if (strstr(todos[i].nome, discente_procurado)) {
+            // Imprime a matrícula, nome e média do discente encontrado
+            printf("Matricula: %i\n", todos[i].matricula);
+            printf("Nome: %s\n", todos[i].nome);
+            printf("Media: %.1f\n", 
+                   (todos[i].notas_discente.nota_a + todos[i].notas_discente.nota_b) / 2);
+            contem = 1;  // Marca que encontrou ao menos um discente
+        }
+    }
+    // Caso nenhum discente tenha sido encontrado
+    if (contem == 0) {
+        printf("Nenhum discente com \"%s\" como parte do nome encontrado\n", discente_procurado);
+    }
+}
+
+// Função para capturar as informações dos discentes (nome, matrícula e notas)
+void captura_discentes(Discente todos_discentes[], int q, char discente_procurado[20]) {
+    char notas[20];  // String auxiliar para ler as notas
+
+    // Loop para capturar os dados de todos os discentes
+    for (int i = 0; i < q; i++) {
+        getchar();  // Limpa o buffer após o scanf anterior
+
+        // Lê o nome do discente, permitindo espaços no nome
+        fgets(todos_discentes[i].nome, sizeof(todos_discentes[i].nome), stdin);
+        strtok(todos_discentes[i].nome, "\n");  // Remove o caractere de nova linha
+
+        // Lê a matrícula do discente
+        scanf("%i", &todos_discentes[i].matricula);
+        getchar();  // Limpa o buffer após o scanf
+
+        // Lê as notas do discente como uma string
+        fgets(notas, sizeof(notas), stdin);
+
+        // Divide a string das notas, separando-as e convertendo para float
+        char *token = strtok(notas, " ");
+        todos_discentes[i].notas_discente.nota_a = atof(token);  // Converte a primeira nota
+        token = strtok(NULL, " ");  // Pega a segunda nota
+        todos_discentes[i].notas_discente.nota_b = atof(token);  // Converte a segunda nota
+    }
+    getchar();  // Limpa o buffer após o último scanf
+    fgets(discente_procurado, 20, stdin);  // Lê o nome do discente a ser procurado
+    strtok(discente_procurado, "\n");  // Remove o caractere de nova linha
+}
+
+int main() {
+    int q;  // Número de discentes
+
+    // Lê a quantidade de discentes
+    scanf("%i", &q);
+
+    // Cria um vetor de discentes do tamanho informado
+    Discente todos_discentes[q];
+    char discente_procurado[20];  // Nome do discente a ser procurado
+
+    // Chama a função para capturar os dados dos discentes
+    captura_discentes(todos_discentes, q, discente_procurado);
+
+    // Chama a função para imprimir os discentes que correspondem ao nome procurado
+    imprime_discentes(todos_discentes, q, discente_procurado);
+
+    return 0;  // Retorna 0 para indicar que o programa terminou com sucesso
+}

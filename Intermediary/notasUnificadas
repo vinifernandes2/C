@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <math.h>
+
+// Definindo os pesos para as notas
+#define PESO_MAIOR 6
+#define PESO_MENOR 4
+
+// Função para unificar as notas com pesos diferentes
+float NotaUnificada(float nota1, float nota2, int pesoMaior, int pesoMenor){
+    float unificada;
+
+    // A nota maior recebe o peso maior, e a menor o peso menor
+    if (nota1 > nota2){
+        unificada = (nota1 * pesoMaior + nota2 * pesoMenor) / (pesoMaior + pesoMenor);
+    } else {
+        unificada = (nota1 * pesoMenor + nota2 * pesoMaior) / (pesoMaior + pesoMenor);
+    }
+
+    return unificada;
+}
+
+// Função para calcular a média de três notas
+float Media(float x, float y, float z){
+    return (x + y + z) / 3;
+}
+
+// Função para atribuir um conceito com base na média
+char Conceito(float media){
+    if (media < 5){
+        return 'F';  // Reprovado
+    } else if (media < 6){
+        return 'E';  // Muito Insuficiente
+    } else if (media < 7){
+        return 'D';  // Insuficiente
+    } else if (media < 8){
+        return 'C';  // Suficiente
+    } else if (media < 9){
+        return 'B';  // Bom
+    } else if (media <= 10){
+        return 'A';  // Excelente
+    } else {
+        return '?';  // Caso a média seja maior que 10 (valor inválido)
+    }
+}
+
+// Função para exibir um prompt para o usuário, indicando qual nota ele deve inserir
+void ExibirPrompt(int i){
+    printf("Digite os valores para a nota #%d:\n", i);
+    return;
+}
+
+// Função para calcular a média progressiva (média das médias), utilizando variáveis estáticas
+double AdicioneNaMedia(double valor){
+    static double soma = 0;    // Variável estática para armazenar a soma das notas
+    static int quantidade = 0; // Variável estática para armazenar o número de notas
+
+    soma += valor;  // Adiciona o valor à soma total
+    quantidade++;   // Incrementa a quantidade de notas processadas
+
+    return soma / quantidade;  // Retorna a média das notas processadas
+}
+
+int main(void){
+    float notaip, notalab;          // Variáveis para armazenar as notas
+    float notaUnificada;            // Variável para armazenar a nota unificada
+    float media;                    // Variável para armazenar a média final
+    int i;
+
+    // Laço de repetição para obter as 3 notas
+    for(i = 1; i <= 3; i++){
+        ExibirPrompt(i);  // Exibe o prompt pedindo as notas
+        printf("\tTeorica: ");
+        scanf("%f", &notaip);  // Recebe a nota teórica
+        printf("\tLaboratorio: ");
+        scanf("%f", &notalab); // Recebe a nota de laboratório
+
+        // Calcula a nota unificada e adiciona na média
+        notaUnificada = NotaUnificada(notaip, notalab, PESO_MAIOR, PESO_MENOR);
+        media = AdicioneNaMedia(notaUnificada);
+        printf("\tNota unificada: %.1f\n", notaUnificada);  // Exibe a nota unificada
+    }
+
+    // Exibe a média final
+    printf("Media: %.1f\n", media);
+
+    // Exibe o conceito baseado na média final
+    printf("Conceito: %c\n", Conceito(media));
+
+    return 0;
+}

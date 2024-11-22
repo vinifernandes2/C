@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct veiculo {
+    char modelo[50];
+    char marca[50];
+    int ano;
+    int preco;
+} tVeiculo;
+
+int main() {
+    tVeiculo veiculo1, veiculo2;
+
+    // Solicitar dados do primeiro veículo
+    printf("Digite as informacoes do primeiro veiculo:\n");
+    printf("Modelo: ");
+    fgets(veiculo1.modelo, 50, stdin);
+    printf("Marca: ");
+    fgets(veiculo1.marca, 50, stdin);
+    printf("Ano: ");
+    scanf("%d", &veiculo1.ano);
+    printf("Preco: ");
+    scanf("%d", &veiculo1.preco);
+    getchar(); // Consumir o '\n' restante após o scanf
+
+    // Solicitar dados do segundo veículo
+    printf("\nDigite as informacoes do segundo veiculo:\n");
+    printf("Modelo: ");
+    fgets(veiculo2.modelo, 50, stdin);
+    printf("Marca: ");
+    fgets(veiculo2.marca, 50, stdin);
+    printf("Ano: ");
+    scanf("%d", &veiculo2.ano);
+    printf("Preco: ");
+    scanf("%d", &veiculo2.preco);
+    getchar(); // Consumir o '\n' restante após o scanf
+
+    // Comparar os anos e preços para decidir qual veículo imprimir
+    printf("\nVeiculo escolhido: \n");
+    if (veiculo1.ano < veiculo2.ano) {
+        // Se o veiculo1 for mais antigo que o veiculo2
+        printf("%s", veiculo1.marca);  // Imprime a marca do veiculo1
+        printf("%s", veiculo1.modelo); // Imprime o modelo do veiculo1
+    }
+    else if (veiculo1.ano > veiculo2.ano) {
+        // Se o veiculo1 for mais novo que o veiculo2
+        printf("%s", veiculo2.marca);  // Imprime a marca do veiculo2
+        printf("%s", veiculo2.modelo); // Imprime o modelo do veiculo2
+    }
+    else {
+        // Se os veículos têm o mesmo ano, comparar o preço
+        if (veiculo1.preco < veiculo2.preco) {
+            printf("%s", veiculo1.marca);  // Imprime a marca do veiculo1
+            printf("%s", veiculo1.modelo); // Imprime o modelo do veiculo1
+        } else {
+            printf("%s", veiculo2.marca);  // Imprime a marca do veiculo2
+            printf("%s", veiculo2.modelo); // Imprime o modelo do veiculo2
+        }
+    }
+
+    return 0;
+}

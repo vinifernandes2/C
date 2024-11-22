@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct jogadores {
+    char nome[50];
+    int idade;
+    float chutes;
+    float gols;
+} tjogadores;
+
+int main() {
+    tjogadores jogadores1, jogadores2;
+
+    // Solicitar os dados do jogador 1
+    printf("Digite o nome do jogador 1: ");
+    fgets(jogadores1.nome, 50, stdin);
+    jogadores1.nome[strcspn(jogadores1.nome, "\n")] = '\0';  // Remove o '\n' no final da string
+
+    printf("Digite a idade, chutes e gols do jogador 1: ");
+    scanf("%d %f %f", &jogadores1.idade, &jogadores1.chutes, &jogadores1.gols);
+
+    getchar();  // Limpa o buffer de nova linha deixado pelo scanf
+
+    // Solicitar os dados do jogador 2
+    printf("\nDigite o nome do jogador 2: ");
+    fgets(jogadores2.nome, 50, stdin);
+    jogadores2.nome[strcspn(jogadores2.nome, "\n")] = '\0';  // Remove o '\n' no final da string
+
+    printf("Digite a idade, chutes e gols do jogador 2: ");
+    scanf("%d %f %f", &jogadores2.idade, &jogadores2.chutes, &jogadores2.gols);
+
+    // Calcular a média de chutes por gol para ambos os jogadores
+    float media_jogador1 = (jogadores1.gols != 0) ? jogadores1.chutes / jogadores1.gols : 0;
+    float media_jogador2 = (jogadores2.gols != 0) ? jogadores2.chutes / jogadores2.gols : 0;
+
+    // Exibir o jogador com a menor razão chutes/gols
+    if (media_jogador1 < media_jogador2) {
+        printf("\nO jogador com melhor desempenho eh: %s (%d)\n", jogadores1.nome, jogadores1.idade);
+    } else if (media_jogador1 > media_jogador2) {
+        printf("\nO jogador com melhor desempenho eh: %s (%d)\n", jogadores2.nome, jogadores2.idade);
+    } else {
+        printf("\nOs jogadores possuem o mesmo desempenho.\n");
+    }
+
+    return 0;
+}

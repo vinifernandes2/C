@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//função que realiza a troca dos valores
+int troca_elementos(int vetor[], int posicao){
+
+    //variável auxiliar para realizar a troca dos valores
+    int aux;
+    aux = vetor[posicao];
+    vetor[posicao] = vetor[posicao + 1];
+    vetor[posicao + 1] = aux;
+    return 1;
+}
+
+//retorna a quantidade de vezes que o vetor precisou ser percorrido
+int ordenacao_bubble_sort(int vetor[], int n) {
+
+    //define se houve a troca dos valores 0 - para não | 1 - para sim
+    int trocado = 0, cont_vezes = 0;
+    do{
+        trocado = 0;
+        //percorre o vetor de 0 até tam - 1
+        for (int i=0;i<n-1;i++){
+
+          // verificar se os elementos estão na ordem certa
+          if (vetor[ i ] < vetor[ i + 1 ]){
+            // trocar elementos de lugar
+            trocado = troca_elementos(vetor, i);
+            trocado = 1;
+
+          }
+
+        }
+        cont_vezes+=1;
+      // enquanto houver elementos sendo reordenados.
+      }while(trocado == 1);
+
+
+    return cont_vezes;
+}
+
+
+int main()
+{
+    int quant_numeros;
+    //captura a quantidade de números no vetor
+    scanf("%i", &quant_numeros);
+    int numeros[quant_numeros];
+
+    //captura os números do vetor
+    for(int i=0;i<quant_numeros;i++){
+        scanf("%i", &numeros[i]);
+    }
+
+    int quant_vezes = ordenacao_bubble_sort(numeros, quant_numeros);
+
+    //imprime os números após ordenação
+    for(int i=0;i<quant_numeros;i++){
+        if(i != quant_numeros - 1)
+            printf("%d ", numeros[i]);
+        else 
+            printf("%d", numeros[i]);
+    }
+    printf("\n%d\n", quant_vezes);
+
+    return 0;
+}

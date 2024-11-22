@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+// Função para somar todos os números de 1 até n
+int SomaAteN(int n){
+    int i, soma;
+
+    // Se n for negativo, retorna -1 como erro
+    if (n < 0){
+        return -1;
+    }
+
+    soma = 0;
+    // Soma os números de 1 até n (mas comete um erro, soma += n, quando deveria ser soma += i)
+    for(i = 0; i <= n; i++){
+        soma += n;
+    }
+
+    return soma;
+}
+
+// Função para calcular o fatorial de um número n
+int Fatorial(int n){
+    int i, fat;
+
+    // Se n for negativo, retorna -1 como erro (fatorial só existe para números não negativos)
+    if (n < 0){
+        return -1;
+    }
+
+    fat = 1;
+    // Calcula o fatorial multiplicando de 1 até n
+    for(i = 1; i <= n; i++){
+        fat *= i;
+    }
+
+    return fat;
+}
+
+// Função para verificar se um número é par
+int EhPar(int x){
+    return x % 2 == 0;  // Retorna 1 (verdadeiro) se x for divisível por 2, senão retorna 0 (falso)
+}
+
+// Função para verificar se a dividibilidade de a por b
+int EhDivisivel(int a, int b){
+    // Se a for divisível por b, retorna 1
+    if (a % b == 0){
+        return 1;
+    }else{
+        return 0; // Caso contrário, retorna 0
+    }
+}
+
+int main(void) {
+    int n, soma, i;
+
+    // Solicita ao usuário um número inteiro
+    printf("Digite um numero inteiro N: ");
+    scanf("%d", &n);
+
+    // Chama a função SomaAteN e imprime o resultado
+    soma = SomaAteN(n);
+    printf("A soma de 1 ateh N eh: %d\n", soma);
+
+    // Calcula e imprime o fatorial de n
+    printf("%d! = %d\n", n, Fatorial(n));
+
+    // Verifica se o número é par ou ímpar e imprime o resultado
+    if (EhPar(n)){
+        printf("%d eh par\n", n);
+    }else{
+        printf("%d eh impar\n", n);
+    }
+
+    // Verifica se o número n é divisível por números de 2 a 15
+    for (i = 2; i <= 15; i++){
+        if (EhDivisivel(n, i)){
+            printf("%d eh divisivel por %d\n", n, i);
+        }else{
+            printf("%d nao eh divisivel por %d\n", n, i);
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <math.h>
+
+// Função que verifica se um triângulo é retângulo usando o teorema de Pitágoras
+int EhTrianguloRetangulo(float a, float b, float c){
+    // Verifica se a soma dos quadrados dos catetos (a^2 + b^2) é igual ao quadrado da hipotenusa (c^2)
+    return (pow(a, 2) + pow(b, 2)) == pow(c, 2);
+}
+
+// Função que calcula o valor do cateto ausente, dado o outro cateto e a hipotenusa
+float FormaTrianguloRetangulo(float a, float b, float c){
+    // Caso o cateto a seja desconhecido (a <= 0)
+    if(a <= 0 && b > 0 && c > 0){
+        // Calcula o valor de 'a' a partir de a hipotenusa (c) e do cateto b
+        return sqrt(pow(c, 2) - pow(b, 2));  // Teorema de Pitágoras: a^2 = c^2 - b^2
+    }
+    // Caso o cateto b seja desconhecido (b <= 0)
+    if(a > 0 && b <= 0 && c > 0){
+        // Calcula o valor de 'b' a partir de a hipotenusa (c) e do cateto a
+        return sqrt(pow(c, 2) - pow(a, 2));  // Teorema de Pitágoras: b^2 = c^2 - a^2
+    }
+    // Caso a hipotenusa c seja desconhecida (c <= 0)
+    if(a > 0 && b > 0 && c <= 0){
+        // Calcula o valor de 'c' a partir dos catetos a e b
+        return sqrt(pow(a, 2) + pow(b, 2));  // Teorema de Pitágoras: c^2 = a^2 + b^2
+    }
+    // Se nenhuma das condições acima for satisfeita, retorna -1, indicando que não é possível calcular
+    return -1;
+}
+
+int main(void){
+    float a, b, c, f;
+
+    // Solicita ao usuário que digite os valores dos catetos a, b, c
+    printf("Digite os catetos a, b, c: ");
+    scanf("%f%f%f", &a, &b, &c);
+
+    // Verifica se os três lados são positivos
+    if(a > 0 && b > 0 && c > 0){
+        // Se os lados formam um triângulo retângulo, imprime uma mensagem de confirmação
+        if(EhTrianguloRetangulo(a, b, c)){
+            printf("Forma um triangulo retangulo");
+        }else{
+            // Caso contrário, imprime que não forma um triângulo retângulo
+            printf("Nao forma um triangulo retangulo");
+        }
+    }else{
+        // Se algum dos catetos ou a hipotenusa for zero ou negativo, tenta calcular o valor ausente
+        f = FormaTrianguloRetangulo(a, b, c);
+        if(f != -1){
+            // Atualiza o valor do cateto ausente
+            if(a <= 0)
+                a = f;  // Substitui o cateto 'a'
+            if(b <= 0)
+                b = f;  // Substitui o cateto 'b'
+            if(c <= 0)
+                c = f;  // Substitui a hipotenusa 'c'
+
+            // Imprime os valores corrigidos para formar um triângulo retângulo
+            printf("Para formar o triangulo retangulo utilize a=%.1f b=%.1f e c=%.1f\n", a, b, c);
+        }
+    }
+
+    return 0;
+}

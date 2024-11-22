@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void GeraEmail(char nome_aluno[], char parte_email[]) {
+    int m = 0;
+
+    // Perceba que estamos agora usando o laço para percorrer até o '\0' da string
+    for (int i = 0; nome_aluno[i] != '\0'; i++) {
+        // Verifica se é a primeira letra ou se está após um espaço
+        if (i == 0 || nome_aluno[i - 1] == ' ') {
+            parte_email[m] = nome_aluno[i];
+            m++;
+        }
+    }
+    parte_email[m] = '\0'; // Assegura que a string termina com o caractere nulo
+}
+
+int main() {
+    char nome[50];
+    printf("\nDigite o nome do aluno: ");
+    
+    // Usando fgets para segurança na leitura
+    fgets(nome, sizeof(nome), stdin);
+
+    // Remove o '\n' que é adicionado pelo fgets
+    nome[strcspn(nome, "\n")] = 0;
+
+    char inicio_email[20];
+    GeraEmail(nome, inicio_email);
+    printf("\n\nEmail: %s@xyz.br\n", inicio_email);
+
+    return 0;
+}

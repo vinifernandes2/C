@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+void Soma(int r, int c, int a[100][100], int b[100][100], int sum[100][100]) {
+    // Soma as duas matrizes
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            sum[i][j] = a[i][j] + b[i][j];
+        }
+    }
+
+    // Imprime o resultado da soma das matrizes
+    printf("\nSoma das duas matrizes: \n");
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            printf("%d   ", sum[i][j]);
+            if (j == c - 1) {
+                printf("\n");
+            }
+        }
+    }
+}
+
+int main() {
+    int r, c, a[100][100], b[100][100], sum[100][100], i, j;
+    
+    // Solicitar número de linhas e colunas
+    printf("Digite o numero de linhas (entre 1 e 100): ");
+    scanf("%d", &r);
+    printf("Digite o numero de colunas (entre 1 e 100): ");
+    scanf("%d", &c);
+
+    // Preencher a primeira matriz
+    printf("\nDigite os elementos da primeira matriz:\n");
+    for (i = 0; i < r; ++i) {
+        for (j = 0; j < c; ++j) {
+            printf("Digite o elemento a%d%d: ", i + 1, j + 1);
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    // Preencher a segunda matriz
+    printf("\nDigite os elementos da segunda matriz:\n");
+    for (i = 0; i < r; ++i) {
+        for (j = 0; j < c; ++j) {
+            printf("Digite o elemento b%d%d: ", i + 1, j + 1);
+            scanf("%d", &b[i][j]);
+        }
+    }
+
+    // Chama a função para somar as duas matrizes
+    Soma(r, c, a, b, sum);
+
+    return 0;
+}

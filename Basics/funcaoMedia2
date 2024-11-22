@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+//Calcula a media de dois valores.
+ 
+//retorna sempre a media dos valores recebidos.
+
+float Media(float valor1, float valor2){
+    float soma = valor1 + valor2;
+    return soma / 2;
+}
+
+//Indica a situacao do aluno de acordo com a media das notas
+
+int Situacao(float media){
+    if (media >= 7)
+        return 1;
+    if (media >= 5)
+        return 2;
+    return 3;
+}
+
+int main(void){
+    float nota1, nota2; 
+    float media;    
+    int situacao; 
+
+    printf("Digite a primeira nota: ");
+    scanf("%f", &nota1);
+    printf("Digite a segunda nota: ");
+    scanf("%f", &nota2);
+
+    media = Media(nota1, nota2);
+    situacao = Situacao(media);
+
+    printf("A media das notas %.1f e %.1f eh %.1f\n", nota1, nota2, media);
+    printf("A situacao do aluno eh: ");
+    switch(situacao){
+        case 1:
+            puts("Aprovado.");
+            break;
+        case 2:
+            puts("Recuperacao.");
+            break;
+        case 3:
+            puts("Reprovado.");
+    }
+
+    return 0;
+}
